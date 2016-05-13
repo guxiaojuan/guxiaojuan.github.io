@@ -1,13 +1,13 @@
 ﻿var arr=new Array();
 
 arr=[
-    ['单页面',
+    /*['单页面',
               ['IFE/ife6/ife6.htm','模拟报纸排版']
-    ],
+    ],*/
     ['网页部件',
-              ['IFE/ife17/ife17.html','DOM生成柱状图图表'],
-              ['IFE/ife19/ife19.htm','选择排序可视化'],
-              ['IFE/ife21/ife21.html','Tag模拟']
+              //['IFE/ife17/ife17.html','DOM生成柱状图图表'],
+              //['IFE/ife19/ife19.htm','选择排序可视化'],
+              ['http://htmlpreview.github.io/?https://github.com/guxiaojuan/IFE/blob/master/ife21/ife21.html','Tag模拟']
     ]
     ]
 
