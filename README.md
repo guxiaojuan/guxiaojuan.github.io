@@ -1,1 +1,2 @@
-# guxiaojuan.github.io
+暨南大学电气信息学院软件工程学生~
+爱好web前端开发
