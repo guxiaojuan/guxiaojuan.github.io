@@ -1,0 +1,80 @@
+﻿// JavaScript Document
+*{
+    margin:0;
+	padding:0;
+  }
+  
+  p{line-height:30px;
+    font-family:20px;
+  }
+  
+  #sec{
+	color:#00FFCC;
+	font-weight:bold;
+	background:#666666;
+  }
+  #login{
+    height:40px;
+	background-color:antiquewhite;
+	text-align:center;
+	line-height:40px;
+	color:red;
+	border:1px solid;
+  }
+  
+  .login:hover{
+     cursor:pointer;
+	 background-color:aliceblue;
+	 color:blue;
+  }
+  
+  #Div{
+    width:400px;
+	height:240px;
+	background:#FFFFFF;
+	position:fixed;                  /*为了体现浮出效果，设置为绝对定位*/
+	z-index:2000;
+	border:2px solid #333333;
+	display:none;
+  }
+
+  button{
+     width:100px;
+	 height:40px;
+	 background-color:#666666;
+	 border:none;
+	 font-weight:bold;
+	 color:#FFFFFF;
+	 margin-left:150px;
+	 margin-top:80px;
+	 
+  }
+ 
+  .content{
+    height:40px;
+	background:#666666;
+	color:#FFFFFF;
+	font-weight:bold;
+	padding-top:4px;
+   }
+   p{
+       margin-top:10px;
+	   font-weight:bold;
+   }
+   
+   .screen{
+     position:fixed;    /*遮罩幕布*/
+	 top:0;
+	 display:none;
+	 z-index:1000;
+	 width:100%;
+	 background:#999999;
+	 opacity:0.5;
+	 filter:alpha(opacity=50)   /*兼容IE9以下*/
+   }
+  
+   .loginLock{
+     cursor:default;
+	 pointer-events:none;   /* 囧，IE和Opera并不支持这个CSS属性*/
+   }
+   
