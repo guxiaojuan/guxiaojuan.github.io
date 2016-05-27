@@ -1,19 +1,19 @@
 // JavaScript Document
 
 var can1,can2,ctx1,ctx2;
-var lastTime;//ÉÏÒ»¸öÖ¡µÄÖ´ĞĞÊ±¼ä
-var deltaTime;//Á½Ö¡Ö®¼äµÄÊ±¼ä¼ä¸ô
-var bgPic=new Image();//±³¾°Í¼Æ¬
+var lastTime;//ä¸Šä¸€ä¸ªå¸§çš„æ‰§è¡Œæ—¶é—´
+var deltaTime;//ä¸¤å¸§ä¹‹é—´çš„æ—¶é—´é—´éš”
+var bgPic=new Image();//èƒŒæ™¯å›¾ç‰‡
 
-var momTail=[];//´óÓãÒ¡Î²°Í
-var momEye=[];//´óÓãÕ£ÑÛ¾¦
-var momBodyOrange=[];//³Ôµ½³ÈÉ«¹ûÊµÉíÌå±ä»¯
+var momTail=[];//å¤§é±¼æ‘‡å°¾å·´
+var momEye=[];//å¤§é±¼çœ¨çœ¼ç›
+var momBodyOrange=[];//åƒåˆ°æ©™è‰²æœå®èº«ä½“å˜åŒ–
 var momBodyBlue=[];
-var babyTail=[];//Ğ¡ÓãÒ¡Î²°Í
-var babyEye=[];//Ğ¡ÓãÕ£ÑÛ¾¦
-var babyBody=[]; //Ğ¡ÓãÉíÌåµÄ±äÉ«Êı×é
+var babyTail=[];//å°é±¼æ‘‡å°¾å·´
+var babyEye=[];//å°é±¼çœ¨çœ¼ç›
+var babyBody=[]; //å°é±¼èº«ä½“çš„å˜è‰²æ•°ç»„
 
-document.body.onload=function(){
+document.onload=function(){
    init();
    lastTime=Date.now();
    deltaTime=0;
@@ -21,15 +21,15 @@ document.body.onload=function(){
 	
 }
 
-var canWidth,canHeight;//±³¾°µÄ¿í¶ÈºÍ¸ß¶È
-var ani;//º£¿û¶ÔÏó
+var canWidth,canHeight;//èƒŒæ™¯çš„å®½åº¦å’Œé«˜åº¦
+var ani;//æµ·è‘µå¯¹è±¡
 var fruit;
 var mom,baby;
-var mx,my;//Êó±êµÄ×ø±ê
-var data; //·ÖÖµ¼ÆËã
-var wave; //´óÓãºÍÊ³ÎïÅö×²Ö®ºóµÄÁ°äôÌØĞ§
-var feed; //´óÓãÎ¹Ğ¡ÓãºóµÄÁ°äôÌØĞ§
-var dust; //Æ¯¸¡Îï
+var mx,my;//é¼ æ ‡çš„åæ ‡
+var data; //åˆ†å€¼è®¡ç®—
+var wave; //å¤§é±¼å’Œé£Ÿç‰©ç¢°æ’ä¹‹åçš„æ¶Ÿæ¼ªç‰¹æ•ˆ
+var feed; //å¤§é±¼å–‚å°é±¼åçš„æ¶Ÿæ¼ªç‰¹æ•ˆ
+var dust; //æ¼‚æµ®ç‰©
 var dustPic=[];
 function init(){
   	can1=document.getElementById("canvas1");
@@ -40,7 +40,7 @@ function init(){
 	
 	data=new dataObj();
 	
-	//°ó¶¨Êó±êÊÂ¼ş
+	//ç»‘å®šé¼ æ ‡äº‹ä»¶
 	addEvent(can1,"mousemove",function(e){
 	   if(!data.gameOver){
 		   e=e || window.event;
@@ -105,7 +105,7 @@ function init(){
 	feed=new feedObj();
 	feed.init();
 	
-   //»­²¼ÉÏµÄ×ÖÌåÑùÊ½
+   //ç”»å¸ƒä¸Šçš„å­—ä½“æ ·å¼
    ctx1.font="30px Verdana";
    ctx1.textAlign="center";
 	
@@ -119,11 +119,11 @@ function init(){
 }
 
 function gameloop(){
-  window.requestAnimFrame(gameloop); //×ö¶¯»­Ê±requestAnimationFrameÏà½ÏÓÚ¶¨Ê±Æ÷¸üºÃÓÃ£¬¸Ãº¯ÊıÖ¡ÓëÖ¡Ö®¼ä¼ä¸ô²»ÎÈ¶¨£¬¸÷¼Òä¯ÀÀÆ÷Ö§³Ö¶È²»Í¬£¬ËùÒÔĞèÒª½øĞĞÖØĞ´
+  window.requestAnimFrame(gameloop); //åšåŠ¨ç”»æ—¶requestAnimationFrameç›¸è¾ƒäºå®šæ—¶å™¨æ›´å¥½ç”¨ï¼Œè¯¥å‡½æ•°å¸§ä¸å¸§ä¹‹é—´é—´éš”ä¸ç¨³å®šï¼Œå„å®¶æµè§ˆå™¨æ”¯æŒåº¦ä¸åŒï¼Œæ‰€ä»¥éœ€è¦è¿›è¡Œé‡å†™
   var now=Date.now();
   deltaTime=now-lastTime;
   
-  if(deltaTime>50) //·ÀÖ¹ÒòÎªdeltaTimeÌ«´óÔì³É¹ûÊµÌ«´ó
+  if(deltaTime>50) //é˜²æ­¢å› ä¸ºdeltaTimeå¤ªå¤§é€ æˆæœå®å¤ªå¤§
      deltaTime=50;
   lastTime=now;
   //console.log(deltaTime);
@@ -132,7 +132,7 @@ function gameloop(){
   fruitMonitor();
   fruit.draw();
   
-  ctx1.clearRect(0,0,canWidth,canHeight);  //Ò»¶¨Òª°ÑÇ°Ò»Ö¡µÄÄÚÈİÇå¿Õ£¬·ñÔò»á³öÏÖºÜ´óµÄÎÊÌâ£¬¸÷ÖÖÁ°äô
+  ctx1.clearRect(0,0,canWidth,canHeight);  //ä¸€å®šè¦æŠŠå‰ä¸€å¸§çš„å†…å®¹æ¸…ç©ºï¼Œå¦åˆ™ä¼šå‡ºç°å¾ˆå¤§çš„é—®é¢˜ï¼Œå„ç§æ¶Ÿæ¼ª
   mom.draw();
   baby.draw();
   
@@ -145,7 +145,7 @@ function gameloop(){
   dust.draw();
 }
 
-//¿çä¯ÀÀÆ÷°ó¶¨ÊÂ¼ş
+//è·¨æµè§ˆå™¨ç»‘å®šäº‹ä»¶
 function addEvent(elem,type,fun){
 	if(elem.addEventLisener)
 	   elem.addEventListener(type,fun,flase);
