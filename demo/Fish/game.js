@@ -13,7 +13,7 @@ var babyTail=[];//小鱼摇尾巴
 var babyEye=[];//小鱼眨眼睛
 var babyBody=[]; //小鱼身体的变色数组
 
-document.onload=function(){
+document.body.onload=function(){
    init();
    lastTime=Date.now();
    deltaTime=0;
