@@ -37,7 +37,7 @@ waveObj.prototype.draw=function(){
 		  ctx1.beginPath();
 		  ctx1.arc(this.x[i],this.y[i],this.r[i],0,Math.PI*2);
 		  ctx1.closePath();
-		  //ctx1.strokeStyle="rgba(255,255,255"+alpha+")";
+		  //ctx1.strokeStyle="rgba(255,255,255,"+alpha+")";
 		  ctx1.strokeStyle="rgba(255,255,255,1)";
 		  ctx1.stroke();
 	   }
