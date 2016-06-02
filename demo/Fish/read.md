@@ -61,9 +61,104 @@
       鱼分为head,body,tail三部分，因为画布上的覆盖问题，所以我们需要先画尾巴，接着身体，最后眼睛。大鱼和小鱼的绘制是相似的，
       搞懂其中一个，另一个直接模仿即可。
      
-      需要搞清楚，大鱼是随着鼠标移动，而小鱼是随着大鱼移动。同时，需要做大鱼和小鱼的动画，即眨眼睛啊，摇尾巴这种，吃到食物
-      身体需要变色。其实这个大鱼小鱼的动画是很简单的，就是几张图片的轮播，我们需要时间间隔，比如在设置眼睛时，眨眼睛和闭眼
-      睛的间隔是不一样的。在设置这些值时，还是要用到一个很重要的变量deltaTime
+      需要搞清楚，大鱼是随着鼠标移动，而小鱼是随着大鱼移动。在这里我们就要考虑下怎么来得到大鱼的坐标。设定鼠标的坐标为mx,
+      my,那么原点与鼠标这条直线的斜率就是tan(Angle)=my/mx,现在大鱼要跟随鼠标，所以大鱼的坐标点也应该尽可能的在这条直线上，
+      即this.angle要尽可能趋于arctan(Angle)，这个角度就可以让我们的大鱼来跟着鼠标旋转运动
+             大鱼坐标获得：
+               this.x=lerpDistance(mx,this.x,0.9);
+               this.y=lerpDistance(my,this.y,0.9);
+             角度获得：
+               var deltaX=mx-this.x;
+               var deltaY=my-this.y;
+               var beta=Math.atan2(deltaY,delataX)+Math.PI;
+               this.angle=lerpAngle(beta,this.angle,0.6)
+             转化原点：
+               ctx1.translate(this.x,this.y);
+             跟随鼠标旋转
+               ctx1.rotete(this.angle);
+                    
+      接下来就需要介绍下lerpDistance和lerpAngle这两个函数了，这两个函数是让一个值趋于某个目标值。即大鱼的横纵坐标尽量趋于鼠标
+      坐标，而大鱼的斜率也鼠标的斜率。这两个函数的定义如下：
+          function lerpAngle(a, b, t) {
+	    var d = b - a;
+	    if (d > Math.PI) d = d - 2 * Math.PI;
+	    if (d < -Math.PI) d = d + 2 * Math.PI;
+	    return a + d * t;
+         }
+
+        function lerpDistance(aim, cur, ratio) {
+	   var delta = cur - aim;
+	   return aim + delta * ratio;
+        }
+
+      
+
+      同时，需要做大鱼和小鱼的动画，即眨眼睛啊，摇尾巴这种，吃到食物身体需要变色。其实这个大鱼小鱼的动画是很简单的，就是几张图
+      片的轮播，我们需要时间间隔，比如在设置眼睛时，眨眼睛和闭眼睛的间隔是不一样的。在设置这些值时，还是要用到一个很重要的变量
+      deltaTime来设置每张图片轮播的间隔时间。大鱼的绘制和动画与大鱼的类似。
+
+      眼睛的动画效果代码：
+      this.babyEyeTimer+=deltaTime;
+	if(this.babyEyeTimer>this.babyEyeInterval){
+		this.babyEyeCount=(this.babyEyeCount+1)%2;
+	    this.babyEyeTimer%=this.babyEyeInterval;
+		
+		//每个状态所持续的时间
+		if(this.babyEyeCount==0){  //眼睛眯起来的状态
+			this.babyEyeInterval=Math.random()*1500+2000;
+		}
+		else{  //眼睛睁开的状态
+			this.babyEyeInterval=200;
+		}
+	}
+	
+
+  6.碰撞检测
+
+    游戏中，我们的大鱼需要碰到食物，然后大鱼还需要碰到小鱼来喂它，所以就需要进行碰撞检测。
+    在检测碰撞时，需要计算两个点的距离，就需要用到两点间的距离公式，不过不需要计算的那么精确，所以就不需要开根号了。计算距离
+    函数
+     function calLength2(x1, y1, x2, y2) {
+	return Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2);
+     }
+
+  7.分数计算
+
+    吃到一个蓝色果实20分，吃到一个橙色果实10分，当小鱼在一定时间限制内还没有吃到果实，则生命值结束，游戏中以小鱼身体变白为游戏
+    结束的标志。
+
+    if(this.babyBodyTimer > 250) {
+    this.babyBodyCount = this.babyBodyCount + 1;   //身体逐帧变白
+    //身体变白的时间
+    this.babyBodyTimer %= 250;    //身体变化的时间
+    if(this.babyBodyCount > 19) {
+      this.babyBodyCount = 19;    //完全变白
+      //gameover
+      data.gameOver = true;
+
+
+   8.分数显示
+    
+     在游戏界面显示分数或者gameover字样时，用到了一些用于美化的API
+     shadowBlur:设置阴影的模糊级数
+     shadowColor:设置阴影的颜色
+
+     比较突出的一个地方是字体透明度的设置，为了不让文字突然出现在画布上，我们用了rgba来勾画。
+
+     
+   if(this.gameOver){
+	 this.alpha+=deltaTime*0.0002;
+	 if(this.alpha>1)
+	    this.alpha=1;
+	 ctx1.fillStyle="rgba(255,255,255,"+this.alpha+")";
+	 //ctx1.fillStyle="white";
+	 ctx1.fillText("Game Over",w*0.5,h*0.5);   
+   }
+   
+
+
+PS:做的项目太少，对于有些数值具体取多少不能像老师那样直接可以看出~努力努力
+      
       
 
 
