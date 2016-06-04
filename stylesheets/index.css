@@ -1,0 +1,50 @@
+/* CSS Document */
+
+#header{
+  position:relative;
+  height:220px;
+  border:1px solid #555555;
+  background-color:#555555;
+  color:#FFFFFF;
+}
+
+#pic{
+ width:200px;
+ border-radius:50%;
+ position:absolute;
+ top:5px;
+ right:3px;
+
+}
+
+.btn{
+  position:absolute;
+  top:5px;
+  left:10px;
+}
+
+#body{
+  background-color:#90A9AE;
+  border:1px solid #90A9AE;
+}
+
+#title{
+  margin-left:400px;
+  padding-top:10px;
+}
+
+ul>li{
+  line-height:40px;
+}
+.content{
+  background-color:#555555;
+  padding-left:440px;
+  padding-top:10px;
+}
+a:hover{
+  color:#990033;
+  cursor:pointer;
+}
+a:active{
+  color:#00FF33;
+}
